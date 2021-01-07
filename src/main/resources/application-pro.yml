@@ -1,0 +1,86 @@
+springfox:
+  documentation:
+    swagger:
+      v2:
+        host: maas.chelaile.net.cn
+
+redis:
+  primary:
+    database: 6
+    host: 192.168.11.192
+    password: online2E93fhs
+    lettuce:
+      pool:
+        max-wait: 100
+        min-idle: 50
+        max-idle: 100
+        max-active: 150
+  driver:
+    database: 6
+    host: 192.168.11.192
+    password: online2E93fhs
+    lettuce:
+      pool:
+        max-wait: 100
+        min-idle: 50
+        max-idle: 100
+        max-active: 150
+  mp:
+    host: redis-e18f56f-XCXfulishe.dcs.huaweicloud.com
+    password: onlineK4ipl5us
+    lettuce:
+      pool:
+        max-wait: 100
+        min-idle: 50
+        max-idle: 100
+        max-active: 150
+
+trdPayCaller: intercity-pro
+trdPayUrl: http://web.chelaile.net.cn/third_pay/order/unifiedOrder.action
+trdPayRefundUrl: http://web.chelaile.net.cn/third_pay/order/refund.action
+trdPayOrderQueryUrl: 'http://web.chelaile.net.cn/third_pay/order/query.action?timestamp={timestamp}&orderNo={orderNo}&mchNo={mchNo}&caller={caller}&sign={sign}'
+trdPayKey: d138f0a7286b492f97443abf4e4747ac
+spring:
+  aop:
+    proxy-target-class: true
+    auto: true
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    druid:
+      url: jdbc:mysql://192.168.12.96:3306/carpooling?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
+      username: zhangzhizhen
+      password: nST1DmyITKMeW0Ax
+      #      url: jdbc:mysql://sh-cdb-k97wn10u.sql.tencentcdb.com:62095/cs?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
+      #      username: wuhanweihu
+      #      password: U5UxnXGzbSAAnkKr
+      initial-size: 10
+      max-active: 100
+      min-idle: 10
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: true
+        wall:
+          config:
+            multi-statement-allow: true
+runIp: 192.168.5.37
+
+sendDefaultOrder:
+  orderUrl: http://web.chelaile.net.cn/third_pay/order/unifiedOrder.action?body={body}&caller=intercity-pro&ip={ip}&mchNo={mchNo}&openId={openId}&orderNo={orderNo}&payType={payType}&payWay={payWay}&timestamp={timestamp}&totalFee={totalFee}
+  h5orderUrl: http://web.chelaile.net.cn/third_pay/order/unifiedOrder.action?body={body}&caller=intercity-pro&ip={ip}&mchNo={mchNo}&orderNo={orderNo}&payType=H5&payWay={payWay}&timestamp={timestamp}&totalFee={totalFee}
+  orderKey: d138f0a7286b492f97443abf4e4747ab
+carpoolingServerUrl: http://maas.chelaile.net.cn/carpoolingManager

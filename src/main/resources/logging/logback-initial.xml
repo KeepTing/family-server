@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For assistance related to logback-translator or configuration files in general,                    -->
+<!--    please contact the logback user mailing list at http://www.qos.ch/mailman/listinfo/logback-user -->
+<!-- For professional support please see http://www.qos.ch/shop/products/professionalSupport            -->
+<!-- Base logback configuration provided for compatibility with ecsplatform like Spring boot.           -->
+<included>
+
+    <!--初始化-预制的日志appender-->
+    <include resource="logging/logback-base.xml"/>
+
+    <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${file_log_base_home}/info.log</File>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${file_log_app_history_home}/info.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>info:${file_log_pattern}</pattern>
+            <charset>${char_set_encoding}</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="task" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${file_log_base_home}/task.log</File>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${file_log_app_history_home}/task.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>task:${file_log_pattern}</pattern>
+            <charset>${char_set_encoding}</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <appender name="applog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${file_log_base_home}/applog.log</File>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${file_log_app_history_home}/applog.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>applog:${file_log_pattern}</pattern>
+            <charset>${char_set_encoding}</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <appender name="controllerAspect" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${file_log_base_home}/controllerAspect.log</File>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${file_log_app_history_home}/controllerAspect.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${file_log_pattern}</pattern>
+            <charset>${char_set_encoding}</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${file_log_base_home}/warn.log</File>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${file_log_app_history_home}/warn.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>warn:${file_log_pattern}</pattern>
+            <charset>${char_set_encoding}</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${file_log_base_home}/error.log</File>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${file_log_app_history_home}/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>error:${file_log_pattern}</pattern>
+            <charset>${char_set_encoding}</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+    </appender>
+
+    <springProfile name="dev">
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+    <logger name="applog" level="INFO" additivity="true">
+        　<appender-ref ref="applog" />
+    </logger>
+    <root>
+        <appender-ref ref="info"/>
+        <appender-ref ref="warn"/>
+        <appender-ref ref="error"/>
+    </root>
+
+    <logger name="controllerAspect" additivity="false" level="INFO">
+        <appender-ref ref="controllerAspect" />
+        <appender-ref ref="error"/>
+    </logger>
+</included>

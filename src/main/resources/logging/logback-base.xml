@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For assistance related to logback-translator or configuration files in general,                    -->
+<!--    please contact the logback user mailing list at http://www.qos.ch/mailman/listinfo/logback-user -->
+<!-- For professional support please see http://www.qos.ch/shop/products/professionalSupport            -->
+<!-- Base logback configuration provided for compatibility with ecsplatform like Spring boot.           -->
+<included>
+
+    <!--应用名称-->
+    <property name="web-app_name" value="intercity"/>
+    <!--日志字符集-->
+    <property name="char_set_encoding" value="UTF-8"/>
+    <!--日志根目录-->
+    <!--    <property name="file_log_base_home" value="/data/log/${web-app_name}/${POD_OWN_NAME}"/>-->
+    <!--日志根目录-->
+    <springProperty scope="context" name="file_log_base_home" source="logging.path"/>
+    <!--历史根目录-->
+    <property name="file_log_app_history_home" value="${file_log_base_home}/history"/>
+
+    <property name="logger_additivity" value="false"/>
+
+    <!--文件日志通用的格式，最多输出 30 字符-->
+    <property name="file_log_pattern_30" value="[%d{yyyy-MM-dd HH:mm:ss}]:%5p %-30.30logger{29}:%L -- %m%n"/>
+    <!--文件日志通用的格式，最多输出 30 字符-->
+    <property name="file_log_pattern_40" value="[%d{yyyy-MM-dd HH:mm:ss}]:%5p %-40.40logger{39}:%L -- %m%n"/>
+    <!--文件日志通用的格式，最多输出 50 字符-->
+    <property name="file_log_pattern_50" value="[%d{yyyy-MM-dd HH:mm:ss}]:%5p %-50.50logger{49}:%L -- %m%n"/>
+    <!--文件日志通用的格式，最多输出 60 字符-->
+    <property name="file_log_pattern" value="[%d{yyyy-MM-dd HH:mm:ss}]:%5p %-60.60logger{59}:%L -- %m%n"/>
+    <!--控制台输出格式-->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(%-60.60logger{59}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+
+    <!--spring 日志基础配置-->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <!--spring 控制台日志相关配置-->
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+</included>

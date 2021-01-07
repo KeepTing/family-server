@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For assistance related to logback-translator or configuration files in general,                    -->
+<!--    please contact the logback user mailing list at http://www.qos.ch/mailman/listinfo/logback-user -->
+<!-- For professional support please see http://www.qos.ch/shop/products/professionalSupport            -->
+<configuration scan="true" scanPeriod="30 seconds">
+    <!-- 引入平台公共的日志配置 配置了info和error-->
+    <include resource="logging/logback-initial.xml"/>
+</configuration>
