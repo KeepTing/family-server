@@ -7,7 +7,7 @@
 <included>
 
     <!--应用名称-->
-    <property name="web-app_name" value="intercity"/>
+    <property name="web-app_name" value="family"/>
     <!--日志字符集-->
     <property name="char_set_encoding" value="UTF-8"/>
     <!--日志根目录-->

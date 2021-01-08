@@ -8,21 +8,6 @@ redis:
         min-idle: 50
         max-idle: 100
         max-active: 150
-  driver:
-    host: 127.0.0.1
-    password:
-    lettuce:
-      pool:
-        max-wait: 100
-        min-idle: 50
-        max-idle: 100
-        max-active: 150
-
-trdPayUrl: http://dev.web.chelaile.net.cn/third_pay/order/unifiedOrder.action
-trdPayRefundUrl: http://dev.web.chelaile.net.cn/third_pay/order/refund.action
-trdPayOrderQueryUrl: 'http://dev.web.chelaile.net.cn/third_pay/order/query.action?timestamp={timestamp}&orderNo={orderNo}&mchNo={mchNo}&caller={caller}&sign={sign}'
-trdPayCaller: intercity-test
-trdPayKey: d138f0a7286b492f97443abf4e4747ac
 spring:
   aop:
     proxy-target-class: true
@@ -31,9 +16,9 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
     druid:
-      url: jdbc:mysql://119.3.122.179:3306/carpooling-test?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
-      username: zhangzhizhen
-      password: nST1DmyITKMeW0Ax
+      url: jdbc:mysql://localhost:3306/family?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
+      username: root
+      password: 123456
       #      url: jdbc:mysql://sh-cdb-k97wn10u.sql.tencentcdb.com:62095/cs?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
       #      username: wuhanweihu
       #      password: U5UxnXGzbSAAnkKr
