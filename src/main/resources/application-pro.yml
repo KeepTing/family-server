@@ -7,7 +7,7 @@ springfox:
 redis:
   primary:
     host: 127.0.0.1
-    password:
+    password: iamxfh
     lettuce:
       pool:
         max-wait: 100
@@ -23,7 +23,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
     druid:
-      url: jdbc:mysql://112.126.99.66:3306/family?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
+      url: jdbc:mysql://localhost:3306/family?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
       username: root
       password: iamxfh
       #      url: jdbc:mysql://sh-cdb-k97wn10u.sql.tencentcdb.com:62095/cs?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8

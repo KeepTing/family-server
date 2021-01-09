@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 public class RestUrl {
     String sendMsgUrl;
     String poiSearchUrl;
+    String weatherUrl;
 
     String baiduPoiUrl;
 }
