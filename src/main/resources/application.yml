@@ -34,6 +34,7 @@ yg:
 #    sendMsgUrl: http://yzm.chelaile.net.cn/sms?phone={phone}&num={num}&time={time}&source=inertcity&other=inertcity
 #    poiSearchUrl: http://baseservice.chelaile.net.cn/baseservice/deffered/search.action?cityId={cityId}&key={key}
     weatherUrl: http://www.tianqiapi.com/api?version=v6&appid=99823599&appsecret=Mq2aVp4z&cityid={cityId}
+    hefengWeatherUrl: https://devapi.qweather.com/v7/weather/now?location={cityId}&key=a66b1ef5a713477f85526bca115bd10f&gzip=n
 #    ##百度api根据关键字查找位置
 #    baiduPoiUrl: http://api.map.baidu.com/place/v2/search
 #mybatis

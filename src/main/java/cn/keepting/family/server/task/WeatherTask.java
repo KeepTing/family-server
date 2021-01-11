@@ -1,9 +1,12 @@
 package cn.keepting.family.server.task;
 
 import cn.keepting.family.server.api.WeatherApi;
+import cn.keepting.family.server.api.model.HefengWeatherInfo;
 import cn.keepting.family.server.api.model.WeatherInfo;
 import cn.keepting.family.server.dao.CityDao;
+import cn.keepting.family.server.dao.HefengCityDao;
 import cn.keepting.family.server.dao.model.CityPo;
+import cn.keepting.family.server.dao.model.HefengCityPo;
 import cn.keepting.family.server.repository.WeatherRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -26,7 +29,7 @@ import java.util.Objects;
 public class WeatherTask {
 
     @Resource
-    CityDao cityDao;
+    HefengCityDao hefengCityDao;
 
     @Autowired
     WeatherApi weatherApi;
@@ -34,29 +37,29 @@ public class WeatherTask {
     @Autowired
     WeatherRepository weatherRepository;
 
-    public static List<CityPo> allCity = new ArrayList<>();
+    public static List<HefengCityPo> allCity = new ArrayList<>();
 
     //    @Scheduled(fixedRate = 3 * 60 * 60 * 1000)
     public void todayWeather() {
-        List<CityPo> cityList = allCity;
+        List<HefengCityPo> cityList = allCity;
         if (CollectionUtils.isEmpty(cityList)) {
-            cityList = cityDao.selectList(null);
+            cityList = hefengCityDao.selectList(null);
         }
         if (CollectionUtils.isEmpty(cityList)) {
             return;
         }
 
         cityList.forEach(city -> {
-            WeatherInfo weatherInfo = weatherApi.getWeather(city.getId());
+            HefengWeatherInfo weatherInfo = weatherApi.getHefengWeather(city.getId());
             if (Objects.nonNull(weatherInfo)) {
-                weatherRepository.saveTodayWeather(city.getId(), weatherInfo);
+                weatherRepository.saveTodayWeather(city.getId()+"", weatherInfo);
             }
         });
     }
 
     @Scheduled(fixedRate = 4 * 60 * 60 * 1000)
     public void allCity() {
-        List<CityPo> cityList = cityDao.selectList(null);
+        List<HefengCityPo> cityList = hefengCityDao.selectList(null);
         if (CollectionUtils.isEmpty(cityList)) {
             return;
         }

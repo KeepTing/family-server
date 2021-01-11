@@ -274,11 +274,11 @@ public class CalendarUtil {
     public static void main(String[] args) throws ParseException {
 
         RestTemplate restTemplate = new RestTemplate();
-        LocalDate localDate = DateUtil.strToLocalDate("2021-04-07", DateUtil.COMMON_DATE_FORMAT);
+        LocalDate localDate = DateUtil.strToLocalDate("2021-07-16", DateUtil.COMMON_DATE_FORMAT);
         for (LocalDate d = localDate; d.isBefore(localDate.plusYears(1)); d = d.plusDays(1)) {
             String date = DateUtil.formatTime(d, "yyyy-MM-dd");
             String res = restTemplate.getForObject("http://v.juhe.cn/calendar/day?date=" + StringUtils.replaceAll(date, "-0", "-") + "&key=e5af5062813363cf63a36852394b0f87", String.class);
-            writeLine("C:\\Users\\徐富豪\\Desktop\\日历.txt", res);
+            writeLine("C:\\Users\\徐富豪\\Desktop\\cal.txt", res);
         }
     }
 

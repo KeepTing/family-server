@@ -16,6 +16,7 @@ public class RestUrl {
     String sendMsgUrl;
     String poiSearchUrl;
     String weatherUrl;
+    String hefengWeatherUrl;
 
     String baiduPoiUrl;
 }

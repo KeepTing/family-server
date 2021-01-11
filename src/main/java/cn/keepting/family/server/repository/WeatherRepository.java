@@ -1,5 +1,6 @@
 package cn.keepting.family.server.repository;
 
+import cn.keepting.family.server.api.model.HefengWeatherInfo;
 import cn.keepting.family.server.api.model.WeatherInfo;
 import cn.keepting.family.server.repository.model.RedisKeys;
 import com.alibaba.fastjson.JSON;
@@ -20,16 +21,16 @@ public class WeatherRepository {
     StringRedisTemplate redisTemplate;
 
 
-    public void saveTodayWeather(String cityId, WeatherInfo info) {
+    public void saveTodayWeather(String cityId, HefengWeatherInfo info) {
         redisTemplate.opsForValue().set(RedisKeys.cityWeatherKey(cityId), JSON.toJSONString(info));
     }
 
-    public WeatherInfo getTodayWeather(String cityId) {
+    public HefengWeatherInfo getTodayWeather(String cityId) {
         String res = redisTemplate.opsForValue().get(RedisKeys.cityWeatherKey(cityId));
         if (StringUtils.isBlank(res)) {
             return null;
         }
-        return JSON.parseObject(res, WeatherInfo.class);
+        return JSON.parseObject(res, HefengWeatherInfo.class);
     }
 
 }

@@ -1,12 +1,15 @@
 package cn.keepting.family.server.service;
 
+import cn.keepting.family.server.api.model.HefengWeatherInfo;
 import cn.keepting.family.server.api.model.WeatherInfo;
 import cn.keepting.family.server.controller.dto.CalenderDTO;
 import cn.keepting.family.server.controller.dto.WeatherDTO;
 import cn.keepting.family.server.dao.CalenderDao;
 import cn.keepting.family.server.dao.CityDao;
+import cn.keepting.family.server.dao.HefengCityDao;
 import cn.keepting.family.server.dao.model.CalenderPo;
 import cn.keepting.family.server.dao.model.CityPo;
+import cn.keepting.family.server.dao.model.HefengCityPo;
 import cn.keepting.family.server.repository.WeatherRepository;
 import cn.keepting.family.server.task.WeatherTask;
 import cn.keepting.family.server.util.GPSConvertUtil;
@@ -36,7 +39,7 @@ public class UtilService {
     CalenderDao calenderDao;
 
     @Resource
-    CityDao cityDao;
+    HefengCityDao hefengCityDao;
 
     @Autowired
     WeatherRepository weatherRepository;
@@ -71,43 +74,54 @@ public class UtilService {
 
     //今日天气
     public WeatherDTO todayWeather(Double lng, Double lat, String cityId) {
-        if (Objects.isNull(cityId)) {
-            CityPo localCity = localCity(lng, lat);
+        HefengCityPo cityPo = null;
+        if (Objects.nonNull(cityId)) {
+            cityPo = hefengCityDao.selectById(cityId);
+        }
+        if (Objects.isNull(cityId) || Objects.isNull(cityPo)) {
+            HefengCityPo localCity = localCity(lng, lat);
             if (Objects.isNull(localCity)) {
                 log.info("未获取到定位城市：{},{}", lng, lat);
                 return null;
             }
-            cityId = localCity.getId();
+            cityId = localCity.getId() + "";
+            cityPo = localCity;
         }
 
-        WeatherInfo info = weatherRepository.getTodayWeather(cityId);
+        HefengWeatherInfo info = weatherRepository.getTodayWeather(cityId);
         if (Objects.isNull(info)) {
             return null;
         }
 
-        WeatherDTO weather = WeatherDTO.copyFromPo(info);
+        WeatherDTO weather = WeatherDTO.builder()
+                .weather(info.getText())
+                .city(cityPo.getCityName())
+                .cityId(cityId)
+                .icon(info.getIcon())
+                .temp(info.getTemp())
+                .build();
         return weather;
     }
 
     //定位城市
-    private CityPo localCity(Double lng, Double lat) {
+    private HefengCityPo localCity(Double lng, Double lat) {
         if (Objects.isNull(lng) || Objects.isNull(lat)) {
 //            return cityList.get(0);
             return null;
         }
-        List<CityPo> cityList = WeatherTask.allCity;
+        List<HefengCityPo> cityList = WeatherTask.allCity;
         if (CollectionUtils.isEmpty(cityList)) {
-            cityList = cityDao.selectList(null);
+            cityList = hefengCityDao.selectList(null);
         }
         if (CollectionUtils.isEmpty(cityList)) {
             return null;
         }
 
         double maxDis = 10000000;
-        CityPo localCity = cityList.get(0);
-        for (CityPo city : cityList) {
-            if (Objects.nonNull(city.getLon()) && Objects.nonNull(city.getLat())) {
-                double dis = GPSConvertUtil.distance(lng, lat, Double.parseDouble(city.getLon()), Double.parseDouble(city.getLat()));
+        HefengCityPo localCity = cityList.get(0);
+        for (HefengCityPo city : cityList) {
+            if (Objects.nonNull(city.getLng()) && Objects.nonNull(city.getLat())) {
+                double dis = GPSConvertUtil.distance(lng, lat, Double.parseDouble(city.getLng()), Double.parseDouble(city.getLat()));
 
                 if (dis < maxDis) {
                     localCity = city;
